@@ -13,7 +13,7 @@ Este é o repositório do meu portfólio pessoal, desenvolvido com HTML, CSS e u
 
 - `index.html` – Página principal do portfólio
 - `style.css` – Estilos personalizados
-- `js/` – Scripts (quando aplicável)
+- `js/` – Scripts 
 - `assets/` – Imagens e ícones utilizados
 
 ## ✍️ Sobre o Projeto
@@ -31,7 +31,7 @@ Este portfólio foi criado do zero como forma de prática e aprendizado. Cada se
 
 Você pode visualizar a versão hospedada em:
 
-👉 [https://mvnx-debug.github.io/meu-portfolio](https://mvnx-debug.github.io/meu-portfolio)
+👉 ([https://mvnx-debug-portfolio.netlify.app/])
 
 ## 📫 Contato
 
