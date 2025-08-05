@@ -302,14 +302,18 @@
         <h2 class="section-title text-center mb-5">Entre em <span class="gradient-text">Contato</span></h2>
         <div class="row justify-content-center">
           <div class="col-lg-8">
-            <form class="contact-form" name="contact" netlify>
-              <input type="hidden" name="subject" value="Novo contato do portfólio">
+            <form class="contact-form" name="contact" netlify netlify-honeypot="bot-field">
+              <input type="hidden" name="form-name" value="contact">
+              <p class="d-none">
+                <label>Não preencha este campo se for humano: <input name="bot-field"></label>
+              </p>
+              
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <input type="text" class="form-control" name="nome" placeholder="Seu Nome" required>
                 </div>
                 <div class="col-md-6 mb-3">
-                  <input type="hidden" name="replyto" value="@email">
+                  <input type="email" class="form-control" name="email" placeholder="Seu Email" required>
                 </div>
               </div>
               <div class="mb-3">
@@ -319,7 +323,7 @@
                 <textarea class="form-control" name="mensagem" rows="5" placeholder="Sua Mensagem" required></textarea>
               </div>
               <button type="submit" class="btn btn-primary btn-lg">Enviar Mensagem</button>
-            </form>
+</form>
           </div>
         </div>
         <div class="social-links text-center mt-5">
