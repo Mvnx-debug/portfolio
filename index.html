@@ -303,19 +303,20 @@
         <div class="row justify-content-center">
           <div class="col-lg-8">
             <form class="contact-form" name="contact" netlify>
+              <input type="hidden" name="subject" value="Novo contato do portfólio">
               <div class="row">
                 <div class="col-md-6 mb-3">
-                  <input type="text" class="form-control" placeholder="Seu Nome" required>
+                  <input type="text" class="form-control" name="nome" placeholder="Seu Nome" required>
                 </div>
                 <div class="col-md-6 mb-3">
-                  <input type="email" class="form-control" placeholder="Seu Email" required>
+                  <input type="hidden" name="replyto" value="@email">
                 </div>
               </div>
               <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Assunto">
+                <input type="text" class="form-control" name="assunto" placeholder="Assunto">
               </div>
               <div class="mb-3">
-                <textarea class="form-control" rows="5" placeholder="Sua Mensagem" required></textarea>
+                <textarea class="form-control" name="mensagem" rows="5" placeholder="Sua Mensagem" required></textarea>
               </div>
               <button type="submit" class="btn btn-primary btn-lg">Enviar Mensagem</button>
             </form>
