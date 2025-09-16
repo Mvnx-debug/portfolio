@@ -1,4 +1,3 @@
-// script.js
 document.addEventListener('DOMContentLoaded', function() {
   // Navbar scroll effect
   const navbar = document.querySelector('.navbar');
@@ -10,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Smooth scrolling for anchor links
+  // efeito suave links apos o click
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       e.preventDefault();
@@ -25,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
           behavior: 'smooth'
         });
         
-        // Close mobile menu after clicking
+        // Fechar menu mobile ao clicar 
         const navbarCollapse = document.querySelector('.navbar-collapse');
         if (navbarCollapse.classList.contains('show')) {
           navbarCollapse.classList.remove('show');
@@ -34,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Animation on scroll
+  // animação de scroll
   const animateOnScroll = function() {
     const elements = document.querySelectorAll('.animate-on-scroll');
     
@@ -48,12 +47,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   };
 
-  // Initialize elements to animate
+  // ini de efeitos 
   document.querySelectorAll('section').forEach(section => {
     section.classList.add('animate-on-scroll');
   });
 
-  // Run on load and scroll
+  // exec ao carregar e scrollar 
   animateOnScroll();
   window.addEventListener('scroll', animateOnScroll);
 
@@ -71,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Typewriter effect for hero section
+  // Efeito da seção hero "typewriter" 
   const typewriter = function() {
     const texts = ["Desenvolvedor Full Stack", "Especialista em Front-end", "Entusiasta de Automação"];
     let count = 0;
@@ -101,9 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(type, 100);
     })();
   };
-  
-  // Uncomment to activate typewriter effect
-  // typewriter();
+  typewriter()
   
   // Dark mode toggle (optional)
   const darkModeToggle = document.getElementById('darkModeToggle');
@@ -113,19 +110,19 @@ document.addEventListener('DOMContentLoaded', function() {
       localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
     });
     
-    // Check for saved preference
+    // checkar se tem preferencias salvas
     if (localStorage.getItem('darkMode') === 'true') {
       document.body.classList.add('dark-mode');
     }
   }
   
-  // Tooltip initialization
+  // Tooltip init
   const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
   tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl);
   });
   
-  // Initialize carousels
+  // Init do carousels
   const carousels = document.querySelectorAll('.carousel');
   carousels.forEach(carousel => {
     new bootstrap.Carousel(carousel, {

@@ -80,7 +80,7 @@ body {
   width: 100%;
 }
 
-/* Hero Section */
+/* Seção hero */
 .hero {
   min-height: 100vh;
   padding-top: 80px;
@@ -157,7 +157,7 @@ body {
   100% { transform: translateY(0px); }
 }
 
-/* Sections */
+/* Seções da page */
 .section-title {
   font-size: 2.5rem;
   font-weight: 700;
@@ -177,7 +177,7 @@ body {
   border-radius: 2px;
 }
 
-/* About Section */
+/* Sobre Section */
 .about-img {
   width: 100%;
   max-width: 400px;
@@ -198,7 +198,7 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Skills Section */
+/* HABI Section */
 .skill-card {
   background: rgba(7, 1, 48, 0.5);
   padding: 30px;
@@ -245,7 +245,7 @@ body {
   color: var(--primary-color);
 }
 
-/* Projects Section */
+/* Projetos Section */
 .project-card {
   background: rgba(7, 1, 48, 0.5);
   border-radius: 15px;
@@ -460,7 +460,7 @@ footer {
   height: 100%;
   object-fit: contain;
 }
-/* Responsividade */
+/* Mobile response */
 @media (max-width: 992px) {
   .hero h1 {
     font-size: 2.8rem;
