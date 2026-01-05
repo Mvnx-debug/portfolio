@@ -1,15 +1,84 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Navbar scroll effect
-  const navbar = document.querySelector('.navbar');
-  window.addEventListener('scroll', function() {
-    if (window.scrollY > 50) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
+  const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+
+  const loadImage = (img) => {
+    if (!img || !img.dataset.lazy) return;
+    img.src = img.dataset.lazy;
+    img.removeAttribute('data-lazy');
+  };
+
+  const lazyImages = document.querySelectorAll('img[data-lazy]');
+  lazyImages.forEach((img) => {
+    if (!img.getAttribute('src')) {
+      img.src = transparentPixel;
     }
+    img.loading = 'lazy';
+    img.decoding = 'async';
   });
 
-  // efeito suave links apos o click
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          loadImage(entry.target);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '200px 0px' });
+
+    lazyImages.forEach((img) => observer.observe(img));
+  } else {
+    lazyImages.forEach(loadImage);
+  }
+
+  document.querySelectorAll('.modal').forEach((modal) => {
+    modal.addEventListener('show.bs.modal', () => {
+      // Carrega apenas imagens visíveis
+      modal.querySelectorAll('img[data-lazy]').forEach(loadImage);
+      // Remover scroll do body ao abrir modal
+      document.body.style.overflow = 'hidden';
+    });
+    
+    modal.addEventListener('hidden.bs.modal', () => {
+      // Restaurar scroll do body
+      document.body.style.overflow = 'auto';
+    });
+  });
+
+  const preloadFirstImage = (modalId) => {
+    const modal = document.querySelector(modalId);
+    if (!modal) return;
+    const firstImg = modal.querySelector('img[data-lazy]');
+    if (firstImg) loadImage(firstImg);
+  };
+
+  document.querySelectorAll('[data-bs-target^="#projectModal"]').forEach((btn) => {
+    const target = btn.getAttribute('data-bs-target');
+    btn.addEventListener('mouseenter', () => preloadFirstImage(target));
+    btn.addEventListener('touchstart', () => preloadFirstImage(target), { passive: true });
+  });
+
+  // Navbar scroll effect - otimizado com throttling
+  const navbar = document.querySelector('.navbar');
+  let scrollTimeout;
+  let lastScroll = 0;
+  
+  window.addEventListener('scroll', function() {
+    const currentScroll = window.scrollY;
+    
+    if (!scrollTimeout) {
+      scrollTimeout = requestAnimationFrame(() => {
+        if (currentScroll > 50 && !navbar.classList.contains('scrolled')) {
+          navbar.classList.add('scrolled');
+        } else if (currentScroll <= 50 && navbar.classList.contains('scrolled')) {
+          navbar.classList.remove('scrolled');
+        }
+        scrollTimeout = null;
+      });
+    }
+  }, { passive: true });
+
+  // Suavidade em links de âncora
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       e.preventDefault();
@@ -19,21 +88,22 @@ document.addEventListener('DOMContentLoaded', function() {
       
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
+        const offsetTop = targetElement.offsetTop - 80;
         window.scrollTo({
-          top: targetElement.offsetTop - 70,
+          top: offsetTop,
           behavior: 'smooth'
         });
         
-        // Fechar menu mobile ao clicar 
+        // Fechar menu mobile ao clicar
         const navbarCollapse = document.querySelector('.navbar-collapse');
-        if (navbarCollapse.classList.contains('show')) {
+        if (navbarCollapse && navbarCollapse.classList.contains('show')) {
           navbarCollapse.classList.remove('show');
         }
       }
     });
   });
 
-  // animação de scroll
+  // Animação de scroll
   const animateOnScroll = function() {
     const elements = document.querySelectorAll('.animate-on-scroll');
     
@@ -47,32 +117,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   };
 
-  // ini de efeitos 
   document.querySelectorAll('section').forEach(section => {
     section.classList.add('animate-on-scroll');
   });
 
-  // exec ao carregar e scrollar 
   animateOnScroll();
   window.addEventListener('scroll', animateOnScroll);
 
-  // Project modals
-  const projectModals = document.querySelectorAll('.project-modal-trigger');
-  projectModals.forEach(modal => {
-    modal.addEventListener('click', function() {
-      const modalId = this.getAttribute('data-modal-target');
-      const targetModal = document.querySelector(modalId);
-      
-      if (targetModal) {
-        const modalInstance = new bootstrap.Modal(targetModal);
-        modalInstance.show();
-      }
-    });
-  });
-
-  // Efeito da seção hero "typewriter" 
+  // Typewriter com proteção
   const typewriter = function() {
-    const texts = ["Desenvolvedor Full Stack", "Especialista em Front-end", "Entusiasta de Automação"];
+    const target = document.querySelector('.typewriter');
+    if (!target) return;
+
+    const texts = ["Bun + Elysia + Drizzle", "React, Tailwind e DX", "Testes: Jest + E2E", "APIs tipadas com PostgreSQL"];
     let count = 0;
     let index = 0;
     let currentText = '';
@@ -86,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
       currentText = texts[count];
       letter = currentText.slice(0, ++index);
       
-      document.querySelector('.typewriter').textContent = letter;
+      target.textContent = letter;
       
       if (letter.length === currentText.length) {
         setTimeout(() => {
@@ -97,37 +154,10 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
-      setTimeout(type, 100);
+      setTimeout(type, 90);
     })();
   };
-  typewriter()
-  
-  // Dark mode toggle (optional)
-  const darkModeToggle = document.getElementById('darkModeToggle');
-  if (darkModeToggle) {
-    darkModeToggle.addEventListener('click', function() {
-      document.body.classList.toggle('dark-mode');
-      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-    });
-    
-    // checkar se tem preferencias salvas
-    if (localStorage.getItem('darkMode') === 'true') {
-      document.body.classList.add('dark-mode');
-    }
-  }
-  
-  // Tooltip init
-  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-  tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl);
-  });
-  
-  // Init do carousels
-  const carousels = document.querySelectorAll('.carousel');
-  carousels.forEach(carousel => {
-    new bootstrap.Carousel(carousel, {
-      interval: 5000,
-      pause: 'hover'
-    });
-  });
+  typewriter();
+
+
 });
