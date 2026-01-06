@@ -2,7 +2,7 @@
 
 Portfólio profissional desenvolvido com **HTML5, CSS3 moderno e JavaScript puro**. Um site focado em **performance, acessibilidade e boas práticas de desenvolvimento**.
 
-> **Status**: ✅ Pronto para produção | **Last Updated**: 2024
+> **Status**: ✅ Pronto para produção | **Last Updated**: 2026
 
 ---
 
