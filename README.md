@@ -82,7 +82,6 @@ portfolio/
 │   │   └── *.jpg             # Fotos pessoais
 │   └── upload/               # Diretório para uploads
 ├── README.md                 # Este arquivo
-├── AUDIT_REPORT.md          # Relatório de auditoria completo
 └── .gitignore               # Padrões de exclusão
 ```
 
@@ -99,7 +98,7 @@ portfolio/
 - Pimbell Backend (Elysia + Drizzle)
 - API Elysia + Bun (TypeScript)
 - Auth Game (Full Stack)
-- Imobiliária (React + Tailwind)
+- Imobiliária (Html + Tailwind + MongoDB)
 - Leitor de PDF (Python)
 - InterCalhas (Frontend)
 - Clone Discord (CSS avançado)
